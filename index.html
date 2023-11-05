@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <title>a contrario</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            margin: 40;
+            padding: 0;
+            color: #000000;
+            display: flex;
+            justify-content: left;
+            align-items: top;
+            height: 100vh;
+        }
+        
+        .dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            animation: move 600s linear infinite;
+            filter: blur(8px);
+        }
+
+        @keyframes move {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(100vw, 100vh);
+            }
+            50% {
+                transform: translate(100vw, 0);
+            }
+            75% {
+                transform: translate(0, 100vh);
+            }
+        }
+
+        .text-container {
+            margin-left: 30px;
+            margin-right: 115px;
+            margin-top: 20px;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        h1 {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 20pt;
+
+        
+        }
+
+        h2{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 20pt;
+        font-style: italic;
+        }
+
+        h3{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 16pt;
+        letter-spacing: 0.3px;
+        word-spacing: -1.7px;
+        }
+
+
+        
+
+        .image-container {
+            display: flex;
+            flex-direction: grid;
+            gap: 28px;
+            margin-top: 75px;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            transition: filter 30s;
+            max-width: 100%;
+            cursor: pointer;
+        }
+
+    
+    </style>
+</head>
+
+
+<body>
+    <div class="text-container">
+        <h1 id="title">a contrario</h1><br>
+        <h3>If you walk through a life where<br>you can't just be happy, 
+            There are<br>things that stand in my way with<br>scary power. 
+            Things that spread<br>out of control the draft blowing<br>against the direction of progress,<br> 
+            Even in the midst of freezing all<br>the doors to the quagmire that<br>pulls down your ankles<br>
+            -Everything bothers as planned.<br><br>
+
+            But there is no life that is as sad<br> as it is. 
+            Even the moments that<br>drove me and blocked me 
+            It will<br>help me move forward again.</h3> <br><br> 
+
+        <h2>[Unbearable flames]<br>
+
+        make it (free)<br><br>
+
+        [Icy freeze]<br>
+
+        makes it (harder)<br><br>
+
+        [Fierce wind]<br>
+
+        makes it go (unexpected)<br><br>
+
+        [Sinking in a pit]<br>
+
+        can be (poppin)<br><br>
+    </div>
+
+    
+
+    <div class="image-container">
+        <img src="1.png" alt="Image 1" onclick="playVideo('1.mp4');">
+        <img src="2.png" alt="Image 2" onclick="playVideo('2.mp4');">
+        <img src="3.png" alt="Image 3" onclick="playVideo('3.mp4');">
+        <img src="4.png" alt="Image 4" onclick="playVideo('4.mp4');">
+        <img src="5.png" alt="Image 5" onclick="playVideo('5.mp4');">
+        <img src="6.png" alt="Image 6" onclick="playVideo('6.mp4');">
+    </div>
+    
+
+
+</div>
+<video id="video" controls style="display: none; width: 60%; height: 60%; position: absolute; 
+top: 290px; left: 420px; right: 100px;"></video>
+<script>
+     let currentVideo = null;
+    let titleInterval, h2Interval, h3Interval;
+
+    function playVideo(videoSrc) {
+        const videoContainer = document.getElementById("video");
+        if (currentVideo) {
+            currentVideo.pause(); // 현재 재생 중인 영상을 일시 정지
+        }
+        videoContainer.src = videoSrc; // 선택한 비디오에 해당하는 소스 설정
+        videoContainer.style.display = "block"; // 비디오 표시
+        videoContainer.play(); // 비디오 재생
+        currentVideo = videoContainer; // 현재 재생 중인 비디오로 설정
+
+        // 텍스트 색상 변경
+        const titleElement = document.getElementById("title");
+        const h2Element = document.querySelector("h2");
+        const h3Elements = document.querySelectorAll("h3");
+
+        // 임의의 색상 생성
+        function getRandomColor() {
+            const letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // 텍스트 색상 변경 함수
+        function changeTextColors() {
+            titleElement.style.color = getRandomColor();
+        }
+
+        function changeH2Colors() {
+            h2Element.style.color = getRandomColor();
+        }
+
+        function changeH3Colors() {
+            h3Elements.forEach((element) => {
+                element.style.color = getRandomColor();
+            });
+        }
+
+        // 1초마다 각 텍스트 색상 변경
+        titleInterval = setInterval(changeTextColors, 300);
+        h2Interval = setInterval(changeH2Colors, 1500);
+        h3Interval = setInterval(changeH3Colors, 1200);
+
+        // 영상이 종료되면 색상 변경을 중지
+        videoContainer.onended = function () {
+            clearInterval(titleInterval);
+            clearInterval(h2Interval);
+            clearInterval(h3Interval);
+        };
+
+        
+        
+    }
+</script>
+</body>
+<body style="overflow: hidden;">
+<body>
+    <script>
+        function createDots() {
+            const dotContainer = document.body;
+            const numDots = 25;
+            const minRadius = 10;
+            const maxRadius = 100;
+
+            for (let i = 0; i < numDots; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                const radius = Math.floor(Math.random() * (maxRadius - minRadius + 1)) + minRadius;
+                const x = Math.floor(Math.random() * (window.innerWidth - 2 * radius)) + radius;
+                const y = Math.floor(Math.random() * (window.innerWidth - 2 * radius)) + radius;
+                dot.style.width = `${2 * radius}px`;
+                dot.style.height = `${2 * radius}px`;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                dot.style.animationDuration = `${Math.random() * 5 + 5}s`;
+
+                // 무작위로 색상 설정 (RGBA)
+                const red = Math.floor(Math.random() * 256);
+                const green = Math.floor(Math.random() * 256);
+                const blue = Math.floor(Math.random() * 256);
+                const alpha = Math.random() * 0.5 + 0.1; // 0.1에서 0.6 사이의 투명도
+                dot.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+
+                dotContainer.appendChild(dot);
+            }
+        }
+
+        createDots();
+    </script>
+</body>
+</body>
+
+</html>
+</html>
+</html>
+
+
+</body>
+</html>
+
+
+
